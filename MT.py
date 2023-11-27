@@ -1,5 +1,5 @@
-def turingMachine(states, alphabet, tape_alphabet, initial_state, accept_states, reject_states, transitions, input_string):
-    tape = list(input_string) + ['_']  # '_' represents a blank symbol
+def turingMachine(initial_state, accept_states, reject_states, transitions, input):
+    tape = list(input) + ['_']
     head_position = 0
     current_state = initial_state
 
@@ -7,42 +7,36 @@ def turingMachine(states, alphabet, tape_alphabet, initial_state, accept_states,
         symbol_under_head = tape[head_position]
         if (current_state, symbol_under_head) in transitions:
             transition = transitions[(current_state, symbol_under_head)]
-            tape[head_position] = transition[1]  # Write
-            head_position += transition[2]  # Move
-            current_state = transition[0]  # New State
+            tape[head_position] = transition[1]  # Escribe
+            head_position += transition[2]  # Se mueve
+            current_state = transition[0]  # Nuevo estado
         else:
-            # Transition not defined, reject
-            current_state = ''
+            current_state = 'q7'
 
     return current_state in accept_states, ''.join(tape)
 
-states = {'q0', 'q1', 'q2','q3', 'q4', 'q5', 'q6'}
-alphabet = {'0', '1'}
-tape_alphabet = {'0', '1', '_'}
-initial_state = 'q0'
+initial_state = 'q1'
 accept_states = {'q6'}
-reject_states = {''}
+reject_states = {'q7'}
 transitions = {
-    ('q0', '0'): ('q1', '_', 1),
-    ('q0', '1'): ('q5', '_', 1),
-    #('q0', '_'): ('', '', ),
-    ('q1', '0'): ('q1', '0', 1),
-    ('q1', '1'): ('q2', '1', 1),
-    #('q1', '_'): ('', '', ),
-    ('q2', '0'): ('q3', '1', -1),
-    ('q2', '1'): ('q2', '1', 1),
-    ('q2', '_'): ('q4', '_', -1),
-    ('q3', '0'): ('q3', '0', -1),
-    ('q3', '1'): ('q3', '1', -1),
-    ('q3', '_'): ('q0', '_', 1),
-    ('q4', '0'): ('q4', '0', -1),
-    ('q4', '1'): ('q4', '_', -1),
-    ('q4', '_'): ('q6', '0', 1),
-    ('q5', '0'): ('q5', '_', 1),
-    ('q5', '1'): ('q5', '_', 1),
-    ('q5', '_'): ('q6', '_', 1),
+    ('q1', '0'): ('q2', '_', 1),
+    ('q1', 'x'): ('q7', 'x', 1),
+    ('q1', '_'): ('q7', '_', 1),
+    ('q2', '0'): ('q3', 'x', 1),
+    ('q2', 'x'): ('q2', 'x', 1),
+    ('q2', '_'): ('q6', '_', 1),
+    ('q3', '0'): ('q4', '0', 1),
+    ('q3', 'x'): ('q3', 'x', 1),
+    ('q3', '_'): ('q5', '_', -1),
+    ('q4', '0'): ('q3', 'x', 1),
+    ('q4', 'x'): ('q4', 'x', 1),
+    ('q4', '_'): ('q7', '_', 1),
+    ('q5', '0'): ('q5', '0', -1),
+    ('q5', 'x'): ('q5', 'x', -1),
+    ('q5', '_'): ('q2', '_', 1),
 }
 
-input_str = '00000000100000'
-result, final_tape = turingMachine(states, alphabet, tape_alphabet, initial_state, accept_states, reject_states, transitions, input_str)
-print(f"Input: {input_str}, Accepted: {result}, Tape: {final_tape}")
+input = '0000'
+result, final_tape = turingMachine(initial_state, accept_states, reject_states, transitions, input)
+print(f"Entrada: {input}, Aceptación: {result}, Cinta: {final_tape}")
+

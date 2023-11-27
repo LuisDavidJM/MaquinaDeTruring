@@ -1,9 +1,6 @@
 (Michael 195)
 El lenguaje de todas las cadenas de 0's donde la longitud es potencia de 2
 
-states = {'q1', 'q2', 'q3','q4', 'q5', 'q6', 'q7'}
-alphabet = {'0'}
-tape_alphabet = {'0', 'x', '_'}
 initial_state = 'q1'
 accept_states = {'q6'}
 reject_states = {'q7'}
@@ -29,12 +26,9 @@ transitions = {
 (Hopcroft 275)
 El lenguaje para calcular la funcion de sustracción propia
 
-states = {'q0', 'q1', 'q2','q3', 'q4', 'q5', 'q6'}
-alphabet = {'0', '1'}
-tape_alphabet = {'0', '1', '_'}
 initial_state = 'q0'
 accept_states = {'q6'}
-reject_states = {''}
+reject_states = {'q7'}
 transitions = {
     ('q0', '0'): ('q1', '_', 1),
     ('q0', '1'): ('q5', '_', 1),
